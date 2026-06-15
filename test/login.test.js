@@ -1,0 +1,22 @@
+const request = require('supertest');
+const { expect } = require('chai');
+
+describe('Login', () => {
+    describe('POST /login', () => {
+        it('Deve retornar 200 com um token em string quando as credenciais forem válidas', async () => {
+            const resposta = await request('localhost:3000')
+                .post('/login')
+                .set('Content-Type', 'application/json')
+                .send({
+                    'username': 'julio.lima',
+                    'senha': '123456'
+                })
+
+                console.log(resposta.body);
+                console.log(resposta.status);   
+                
+            expect(resposta.status).to.equal(200);
+            expect(resposta.body.token).to.be.a('string');
+        })
+    })
+})
