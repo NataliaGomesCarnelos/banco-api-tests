@@ -5,7 +5,7 @@ describe('Transferencias', () => {
     describe('POST /transferencias', () => {
         it('Deve retornar 201 quando a transferência for criada com sucesso', async () => {
             
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(process.env.BASE_URL)
                             .post('/login')
                             .set('Content-Type', 'application/json')
                             .send({
@@ -15,7 +15,7 @@ describe('Transferencias', () => {
             expect(respostaLogin.status).to.equal(200);
             const token = respostaLogin.body.token;
 
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request(process.env.BASE_URL)
                 .post('/transferencias')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -31,7 +31,7 @@ describe('Transferencias', () => {
 
         it('Deve retornar 422 quando valor da transferência menor que 10', async () => {
             
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(process.env.BASE_URL)
                             .post('/login')
                             .set('Content-Type', 'application/json')
                             .send({
@@ -41,7 +41,7 @@ describe('Transferencias', () => {
             expect(respostaLogin.status).to.equal(200);
             const token = respostaLogin.body.token;
 
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request(process.env.BASE_URL)
                 .post('/transferencias')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -51,7 +51,6 @@ describe('Transferencias', () => {
                     valor: 9,
                     token: ""
                 })
-        console.log(resposta.body);    
             expect(resposta.status).to.equal(422);
         })
     })
